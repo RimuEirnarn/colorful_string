@@ -182,8 +182,8 @@ Overlined = _base_factory("overlined", '\033[53m')
 NotFramed = _base_factory("unframed", "\033[54m")
 NotOverlined = _base_factory('NotOverlined', '\033[55m')
 
-Backgrounds = SimpleNamespace()
-Foregrounds = SimpleNamespace()
+Background = SimpleNamespace()
+Foreground = SimpleNamespace()
 
 for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan",
                                "White", "Gray", "BrightRed", "BrightYellow", "BrightBlue",
@@ -194,8 +194,8 @@ for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Mage
     bgname = f"Back_{bname}"
     func_fg = _base_factory(fgname, f"\033[{foreg}m")
     func_bg = _base_factory(bgname, f"\033[{backg}m")
-    setattr(Foregrounds, bname, func_fg)
-    setattr(Backgrounds, bname, func_bg)
+    setattr(Foreground, bname, func_fg)
+    setattr(Background, bname, func_bg)
 
 __all__ = ["Color", "factory", "Bold", "Faint", "Italic", "Underline", "SlowBlink", "RapidBlink",
            "Invert", "Hide", "Strike", "Default", "AltFont1", "AltFont2", "AltFont3", "AltFont4",
@@ -203,4 +203,4 @@ __all__ = ["Color", "factory", "Bold", "Faint", "Italic", "Underline", "SlowBlin
            "Two_underline_or_not_bold", "NormalIntensity", "NeitherItalicNorBlackletter",
            "NotBlinking", "NotUnderlined", "ProportionalSpacing", "NotReversed", "Reveal",
            "NotStriked", "Framed", "Encircled", "Overlined", "NotFramed", "NotOverlined",
-           "Backgrounds", "Foregrounds"]
+           "Background", "Foreground"]
