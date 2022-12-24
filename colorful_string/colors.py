@@ -1,8 +1,8 @@
 """Colorful text
 
 You can use anything from here using the package import
->>> from colorful_text import Color
->>> from colorful_text import CallLinks"""
+>>> from colorful_string import Color
+>>> from colorful_string import CallLinks"""
 
 from os import environ
 from typing import Callable, Literal, Tuple, Union

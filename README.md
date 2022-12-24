@@ -1,17 +1,17 @@
-# Colorful Text
+# Colorful String
 
 Yes, this package only wraps a string to some certain codes.
 
 ## Installation
 
 ```sh
-pip install git+https://github.com/RimuEirnarn/colorful_text.git
+pip install git+https://github.com/RimuEirnarn/colorful_string.git
 ```
 
 ## Usage
 
 ```python
-from colorful_text import CallLinks, Foreground, Italic, Bold
+from colorful_string import CallLinks, Foreground, Italic, Bold
 
 procedure = CallLinks(Foreground.Red, Italic, Bold)
 print(procedure("Hello, World!"))
@@ -20,7 +20,7 @@ print(procedure("Hello, World!"))
 Naturally, CallLinks is optional.
 
 ```python
-from colorful_text import Foreground, Italic, Bold
+from colorful_string import Foreground, Italic, Bold
 
 text = Bold(Italic(Foreground.Red("Hello, World!")))
 print(text)
