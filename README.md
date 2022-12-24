@@ -5,7 +5,7 @@ Yes, this package only wraps a string to some certain codes.
 ## Installation
 
 ```sh
-git clone https://github.com/RimuEirnarn/colorful_text
+pip install git+https://github.com/RimuEirnarn/colorful_text.git
 ```
 
 ## Usage
