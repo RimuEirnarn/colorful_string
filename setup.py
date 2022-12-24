@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='colorful_text',
-      version='0.0.1',
+      version='0.0.2',
       description='Add colors/styles to your string',
       url='https://github.com/RimuEirnarn/colorful_text',
       author='RimuEirnarn',
