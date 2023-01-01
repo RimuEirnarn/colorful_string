@@ -192,7 +192,7 @@ Background = SimpleNamespace()
 Foreground = SimpleNamespace()
 
 for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan",
-                               "White", "Gray", "BrightRed", "BrightYellow", "BrightBlue",
+                               "White", "Gray", "BrightRed", "BrightGreen", "BrightYellow", "BrightBlue",
                                "BrightMagenta", "BrightCyan", "BrightWhite"),
                               list(range(30, 38))+list(range(90, 98)),
                               list(range(40, 48))+list(range(100, 108))):
@@ -200,6 +200,7 @@ for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Mage
     bgname = f"Back_{bname}"
     func_fg = _base_factory(fgname, f"\033[{foreg}m")
     func_bg = _base_factory(bgname, f"\033[{backg}m")
+    print(bname, foreg, backg)
     setattr(Foreground, bname, func_fg)
     setattr(Background, bname, func_bg)
 
