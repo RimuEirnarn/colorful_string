@@ -200,7 +200,6 @@ for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Mage
     bgname = f"Back_{bname}"
     func_fg = _base_factory(fgname, f"\033[{foreg}m")
     func_bg = _base_factory(bgname, f"\033[{backg}m")
-    print(bname, foreg, backg)
     setattr(Foreground, bname, func_fg)
     setattr(Background, bname, func_bg)
 
