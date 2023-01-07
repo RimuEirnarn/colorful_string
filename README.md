@@ -13,7 +13,7 @@ pip install git+https://github.com/RimuEirnarn/colorful_string.git
 ```python
 from colorful_string import Combination, Foreground, Italic, Bold
 
-procedure = CallLinks(Foreground.Red, Italic, Bold)
+procedure = Combination(Foreground.Red, Italic, Bold)
 print(procedure("Hello, World!"))
 ```
 
