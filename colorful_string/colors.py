@@ -61,6 +61,7 @@ class Color:
 
     @property
     def hex(self):
+        """Hex Representation"""
         return f"0x{hex(self.red)[2:]:0>2}{hex(self.green)[2:]:0>2}{hex(self.blue)[2:]:0>2}"
 
     @property
@@ -101,7 +102,8 @@ if "256color" not in environ.get("TERM", ''):
     if TERM == "":
         TERM = "this"
     warn(f"{TERM} terminal may not support 256 colors. \
-Foregrounds.X may works better, but that's your choice.")
+Foregrounds.X may works better, but that's your\
+ choice.")
     del TERM
 
 def factory(opt: ForeBack, color: RGB) -> Callable[[str, int], str]:
@@ -191,11 +193,14 @@ NotOverlined = _base_factory('NotOverlined', '\033[55m')
 Background = SimpleNamespace()
 Foreground = SimpleNamespace()
 
+_fores = list(range(30, 38))+list(range(90, 98))
+_backs = list(range(40, 48))+list(range(100, 108))
+
 for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan",
-                               "White", "Gray", "BrightRed", "BrightGreen", "BrightYellow", "BrightBlue",
-                               "BrightMagenta", "BrightCyan", "BrightWhite"),
-                              list(range(30, 38))+list(range(90, 98)),
-                              list(range(40, 48))+list(range(100, 108))):
+                               "White", "Gray", "BrightRed", "BrightGreen", "BrightYellow",
+                               "BrightBlue", "BrightMagenta", "BrightCyan", "BrightWhite"),
+                               _fores,
+                               _backs):
     fgname = f"Fore_{bname}"
     bgname = f"Back_{bname}"
     func_fg = _base_factory(fgname, f"\033[{foreg}m")
