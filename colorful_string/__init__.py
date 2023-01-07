@@ -5,6 +5,6 @@ from .utils import *
 
 __all__ = colors.__all__ + utils.__all__ # type: ignore
 
-__version__ = "0.0.3"
+__version__ = "0.1.1"
 
 # Now you can do the usual stuff.

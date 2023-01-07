@@ -57,10 +57,11 @@ class Color:
         return 3
 
     def __int__(self):
-        return self._red * self._green * self._blue
+        return int(self.hex, 16)
 
-    def __hex__(self):
-        return hex(int(self))
+    @property
+    def hex(self):
+        return f"0x{hex(self.red)[2:]:0>2}{hex(self.green)[2:]:0>2}{hex(self.blue)[2:]:0>2}"
 
     @property
     def red(self):
@@ -93,8 +94,7 @@ class Color:
         self._update('blue', value)
 
     def __repr__(self) -> str:
-        return f"({self._red}, {self._green}, {self._blue})"
-
+        return f"#{self.hex[2:]}"
 
 if "256color" not in environ.get("TERM", ''):
     TERM = environ.get("TERM", "this")
