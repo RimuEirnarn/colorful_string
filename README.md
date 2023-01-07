@@ -11,13 +11,13 @@ pip install git+https://github.com/RimuEirnarn/colorful_string.git
 ## Usage
 
 ```python
-from colorful_string import CallLinks, Foreground, Italic, Bold
+from colorful_string import Combination, Foreground, Italic, Bold
 
-procedure = CallLinks(Foreground.Red, Italic, Bold)
+procedure = Combination(Foreground.Red, Italic, Bold)
 print(procedure("Hello, World!"))
 ```
 
-Naturally, CallLinks is optional.
+Naturally, Combination is optional.
 
 ```python
 from colorful_string import Foreground, Italic, Bold
@@ -25,6 +25,8 @@ from colorful_string import Foreground, Italic, Bold
 text = Bold(Italic(Foreground.Red("Hello, World!")))
 print(text)
 ```
+
+**Note**: Combination is formely named CallLinks, i've added alias to Combination for backward compatibility.
 
 does the same as the first example.
 
