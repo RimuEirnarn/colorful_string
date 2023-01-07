@@ -28,7 +28,7 @@ print(text)
 
 **Note**: Combination is formely named CallLinks, i've added alias to Combination for backward compatibility.
 
-does the same as the first example.
+This (second example) does the same as the first example.
 
 ## Issues
 
