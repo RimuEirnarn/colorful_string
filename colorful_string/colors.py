@@ -105,14 +105,8 @@ if "256color" not in environ.get("TERM", ''):
     TERM = environ.get("TERM", "this")
     if TERM == "":
         TERM = "this"
-<<<<<<< HEAD
     warn(f"{TERM} terminal may not support 256 colors.\
 Foregrounds.X may works better, but that's your choice.")
-=======
-    warn(f"{TERM} terminal may not support 256 colors. \
-Foregrounds.X may works better, but that's your\
- choice.")
->>>>>>> ed516ebbe915394f801426a00466ef536324f381
     del TERM
 
 def factory(opt: ForeBack, color: RGB, __install: OPTMODULE = None) -> STYLEFN:
@@ -145,8 +139,8 @@ close the encapsulation) (color id -> {colors!r}""" # type: ignore
         caller = getframeinfo(currentframe().f_back)  # Don't edit this part.
         if caller.code_context is not None:
             try:
-                code = _astparse(caller.code_context[caller.index].rstrip().lstrip())
-                name = code.body[0].targets[0].id
+                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip())
+                name = code0.body[0].targets[0].id
             except AttributeError: # most likely due to Expr.
                 name = wrapper.__name__
             setattr(__install, name, wrapper)
@@ -175,8 +169,8 @@ def _base_factory(name: str, code: str, __install: OPTMODULE = None) -> STYLEFN:
         caller = getframeinfo(currentframe().f_back)  # Don't edit this part.
         if caller.code_context is not None:
             try:
-                code = _astparse(caller.code_context[caller.index].rstrip().lstrip())
-                varname = code.body[0].targets[0].id
+                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip())
+                varname = code0.body[0].targets[0].id
             except AttributeError: # most likely due to Expr.
                 varname = name
             setattr(__install, varname, wrapper)
@@ -231,17 +225,12 @@ _backs = list(range(40, 48))+list(range(100, 108))
 for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan",
                                "White", "Gray", "BrightRed", "BrightGreen", "BrightYellow",
                                "BrightBlue", "BrightMagenta", "BrightCyan", "BrightWhite"),
-<<<<<<< HEAD
-                              list(range(30, 38))+list(range(90, 98)),
-                              list(range(40, 48))+list(range(100, 108))):
-=======
                                _fores,
                                _backs):
->>>>>>> ed516ebbe915394f801426a00466ef536324f381
     fgname = f"Fore_{bname}"
     bgname = f"Back_{bname}"
-    _base_factory(fgname, f"\033[{foreg}m", Foreground)
-    _base_factory(bgname, f"\033[{backg}m", Background)
+    _base_factory(bname, f"\033[{foreg}m", Foreground)
+    _base_factory(bname, f"\033[{backg}m", Background)
 
 __all__ = ["Color", "factory", "Bold", "Faint", "Italic", "Underline", "SlowBlink", "RapidBlink",
            "Invert", "Hide", "Strike", "Default", "AltFont1", "AltFont2", "AltFont3", "AltFont4",
