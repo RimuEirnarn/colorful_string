@@ -136,11 +136,11 @@ def factory(opt: ForeBack, color: RGB, __install: OPTMODULE = None) -> STYLEFN:
 close the encapsulation) (color id -> {colors!r}""" # type: ignore
     wrapper.colors = colors # type: ignore
     if __install:
-        caller = getframeinfo(currentframe().f_back)  # pylint: disable
+        caller = getframeinfo(currentframe().f_back)  # type: ignore
         if caller.code_context is not None:
             try:
-                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip()) # pylint: disable
-                name = code0.body[0].targets[0].id # pylint: disable
+                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip()) # type: ignore
+                name = code0.body[0].targets[0].id # type: ignore
             except AttributeError: # most likely due to Expr.
                 name = wrapper.__name__
             setattr(__install, name, wrapper)
@@ -166,11 +166,11 @@ def _base_factory(name: str, code: str, __install: OPTMODULE = None) -> STYLEFN:
     wrapper.__doc__ = f"""Encapsulate string in defined code \
 (the second args will close the encapsulation) (id -> {code[2:-1]})""" # type: ignore
     if __install:
-        caller = getframeinfo(currentframe().f_back)  # Don't edit this part.
+        caller = getframeinfo(currentframe().f_back) # type: ignore
         if caller.code_context is not None:
             try:
-                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip())
-                varname = code0.body[0].targets[0].id
+                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip()) # type: ignore
+                varname = code0.body[0].targets[0].id # type: ignore
             except AttributeError: # most likely due to Expr.
                 varname = name
             setattr(__install, varname, wrapper)
