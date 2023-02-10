@@ -4,11 +4,11 @@ from typing import Callable, Tuple
 
 Function = Callable[[str, int], str]
 
-class CallLinks:
-    """Set call stack for future cases.
+class Combination:
+    """Set combinations for future cases.
 
     As example:
-    >>> x = CallLinks(Red, Bold, Italic)
+    >>> x = Combination(Red, Bold, Italic)
     >>> x("Hello, World")
     # reddish, bold, and italic version of "Hello, World" """
     def __init__(self, *callables: Function):
@@ -60,6 +60,20 @@ class CallLinks:
         return result
 
     def __repr__(self) -> str:
-        return f"""CallLinks({len(self)} attached)"""
+        return f"""Combination({len(self)} attached)"""
 
-__all__ = ["CallLinks"]
+    def __missing__(self, cnt: Function):
+        return cnt in self._calls
+
+    def __add__(self, other: Function):
+        self.push(other)
+        return self
+
+    def __sub__(self, other: Function):
+        while other in self:
+            self.remove(other)
+        return self
+
+CallLinks = Combination
+
+__all__ = ["Combination", "CallLinks"]

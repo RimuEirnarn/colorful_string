@@ -61,10 +61,12 @@ class Color:
         return 3
 
     def __int__(self):
-        return self._red * self._green * self._blue
+        return int(self.hex, 16)
 
-    def __hex__(self):
-        return hex(int(self))
+    @property
+    def hex(self):
+        """Hex Representation"""
+        return f"0x{hex(self.red)[2:]:0>2}{hex(self.green)[2:]:0>2}{hex(self.blue)[2:]:0>2}"
 
     @property
     def red(self):
@@ -97,15 +99,20 @@ class Color:
         self._update('blue', value)
 
     def __repr__(self) -> str:
-        return f"({self._red}, {self._green}, {self._blue})"
-
+        return f"#{self.hex[2:]}"
 
 if "256color" not in environ.get("TERM", ''):
     TERM = environ.get("TERM", "this")
     if TERM == "":
         TERM = "this"
+<<<<<<< HEAD
     warn(f"{TERM} terminal may not support 256 colors.\
 Foregrounds.X may works better, but that's your choice.")
+=======
+    warn(f"{TERM} terminal may not support 256 colors. \
+Foregrounds.X may works better, but that's your\
+ choice.")
+>>>>>>> ed516ebbe915394f801426a00466ef536324f381
     del TERM
 
 def factory(opt: ForeBack, color: RGB, __install: OPTMODULE = None) -> STYLEFN:
@@ -218,11 +225,19 @@ Overlined = _base_factory("overlined", '\033[53m', Style)
 NotFramed = _base_factory("unframed", "\033[54m", Style)
 NotOverlined = _base_factory('NotOverlined', '\033[55m', Style)
 
+_fores = list(range(30, 38))+list(range(90, 98))
+_backs = list(range(40, 48))+list(range(100, 108))
+
 for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan",
                                "White", "Gray", "BrightRed", "BrightGreen", "BrightYellow",
                                "BrightBlue", "BrightMagenta", "BrightCyan", "BrightWhite"),
+<<<<<<< HEAD
                               list(range(30, 38))+list(range(90, 98)),
                               list(range(40, 48))+list(range(100, 108))):
+=======
+                               _fores,
+                               _backs):
+>>>>>>> ed516ebbe915394f801426a00466ef536324f381
     fgname = f"Fore_{bname}"
     bgname = f"Back_{bname}"
     _base_factory(fgname, f"\033[{foreg}m", Foreground)
