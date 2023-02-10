@@ -227,8 +227,6 @@ for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Mage
                                "BrightBlue", "BrightMagenta", "BrightCyan", "BrightWhite"),
                                _fores,
                                _backs):
-    fgname = f"Fore_{bname}"
-    bgname = f"Back_{bname}"
     _base_factory(bname, f"\033[{foreg}m", Foreground)
     _base_factory(bname, f"\033[{backg}m", Background)
 
