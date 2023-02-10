@@ -24,11 +24,14 @@ RESET = "\033[0m"
 # and this module is only for coloring and styling. It might not perfect but
 # it will not use all the ANSI Escape codes.
 
+
 class UnsupportedTerminal(UserWarning):
     """Current terminal may not support 256 colors."""
 
+
 class Color:
     """Color"""
+
     def __init__(self, red: int, green: int, blue: int) -> None:
         for base, num in zip(('red', 'green', 'blue'), (red, green, blue)):
             if num <= -1 or num >= 256:
@@ -101,6 +104,7 @@ class Color:
     def __repr__(self) -> str:
         return f"#{self.hex[2:]}"
 
+
 if "256color" not in environ.get("TERM", ''):
     TERM = environ.get("TERM", "this")
     if TERM == "":
@@ -108,6 +112,7 @@ if "256color" not in environ.get("TERM", ''):
     warn(f"{TERM} terminal may not support 256 colors.\
 Foregrounds.X may works better, but that's your choice.")
     del TERM
+
 
 def factory(opt: ForeBack, color: RGB, __install: OPTMODULE = None) -> STYLEFN:
     """Create function with background/foregroung color
@@ -132,16 +137,17 @@ def factory(opt: ForeBack, color: RGB, __install: OPTMODULE = None) -> STYLEFN:
         rgb = ";".join((str(a) for a in colors))
         return f"{code}{rgb}m{string}{RESET if __call_depth == 0 else ''}"
     wrapper.__name__ = opt+'ground'
-    wrapper.__doc__  = """Encapsulate string in defined code (the second args will \
-close the encapsulation) (color id -> {colors!r}""" # type: ignore
-    wrapper.colors = colors # type: ignore
+    wrapper.__doc__ = """Encapsulate string in defined code (the second args will \
+close the encapsulation) (color id -> {colors!r}"""  # type: ignore
+    wrapper.colors = colors  # type: ignore
     if __install:
         caller = getframeinfo(currentframe().f_back)  # type: ignore
         if caller.code_context is not None:
             try:
-                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip()) # type: ignore
-                name = code0.body[0].targets[0].id # type: ignore
-            except AttributeError: # most likely due to Expr.
+                code0 = _astparse(
+                    caller.code_context[caller.index].rstrip().lstrip())  # type: ignore
+                name = code0.body[0].targets[0].id  # type: ignore
+            except (AttributeError, IndentationError):
                 name = wrapper.__name__
             setattr(__install, name, wrapper)
             return wrapper
@@ -164,20 +170,22 @@ def _base_factory(name: str, code: str, __install: OPTMODULE = None) -> STYLEFN:
         return f"{code}{string}{RESET if __call_depth == 0 else ''}"
     wrapper.__name__ = name
     wrapper.__doc__ = f"""Encapsulate string in defined code \
-(the second args will close the encapsulation) (id -> {code[2:-1]})""" # type: ignore
+(the second args will close the encapsulation) (id -> {code[2:-1]})"""  # type: ignore
     if __install:
-        caller = getframeinfo(currentframe().f_back) # type: ignore
+        caller = getframeinfo(currentframe().f_back)  # type: ignore
         if caller.code_context is not None:
             try:
-                code0 = _astparse(caller.code_context[caller.index].rstrip().lstrip()) # type: ignore
-                varname = code0.body[0].targets[0].id # type: ignore
-            except AttributeError: # most likely due to Expr.
+                code0 = _astparse(
+                    caller.code_context[caller.index].rstrip().lstrip())  # type: ignore
+                varname = code0.body[0].targets[0].id  # type: ignore
+            except (AttributeError, IndentationError):
                 varname = name
             setattr(__install, varname, wrapper)
             return wrapper
         setattr(__install, name, wrapper)
 
     return wrapper
+
 
 Background = SimpleNamespace()
 Foreground = SimpleNamespace()
@@ -204,9 +212,9 @@ AltFont7 = _base_factory('altfont7', '\033[17m', Style)
 AltFont8 = _base_factory('altfont8', '\033[18m', Style)
 AltFont9 = _base_factory('altfont9', '\033[19m', Style)
 Fraktur = _base_factory('fraktur', '\033[20m', Style)
-Two_underline_or_not_bold = _base_factory('2underline-notbold', '\033[21m', Style)
+Two_underline_or_not_bold = _base_factory('2underline-notbold', '\033[21m', Style)  # pylint: disable
 NormalIntensity = _base_factory('normal', '\033[22m', Style)
-NeitherItalicNorBlackletter = _base_factory('not_italic_blackletter', '\033[23m', Style) # pylint: disable
+NeitherItalicNorBlackletter = _base_factory('not_italic_blackletter', '\033[23m', Style)  # pylint: disable
 NotUnderlined = _base_factory('not_underlined', '\033[24m', Style)
 NotBlinking = _base_factory('unblink', '\033[25m', Style)
 ProportionalSpacing = _base_factory('proportional-spacing', '\033[26m', Style)
@@ -219,12 +227,14 @@ Overlined = _base_factory("overlined", '\033[53m', Style)
 NotFramed = _base_factory("unframed", "\033[54m", Style)
 NotOverlined = _base_factory('NotOverlined', '\033[55m', Style)
 
+# The reason why there's longer thing is because... If the thing was shorter, it'll break the code.
+
 _fores = list(range(30, 38))+list(range(90, 98))
 _backs = list(range(40, 48))+list(range(100, 108))
 
 for bname, foreg, backg in zip(("Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan",
                                "White", "Gray", "BrightRed", "BrightGreen", "BrightYellow",
-                               "BrightBlue", "BrightMagenta", "BrightCyan", "BrightWhite"),
+                                "BrightBlue", "BrightMagenta", "BrightCyan", "BrightWhite"),
                                _fores,
                                _backs):
     _base_factory(bname, f"\033[{foreg}m", Foreground)
