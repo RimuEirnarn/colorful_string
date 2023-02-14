@@ -1,13 +1,9 @@
 """Utility"""
 
 from typing import Callable, List, Tuple
-from warnings import warn
 from . import colors
 
 Function = Callable[[str, int], str]
-
-class StyleUndefinedWarning(UserWarning):
-    """Specific style is missing."""
 
 class Combination:
     """Set combinations for future cases.
@@ -63,7 +59,6 @@ class Combination:
             if style.startswith("bg_"):
                 styles.append(getattr(colors.Background, style.replace("bg_", '')))
                 continue
-            warn(f"Style {style} is undefined. It's ignored now.", StyleUndefinedWarning)
         return cls(*styles)
 
     def __iter__(self):
