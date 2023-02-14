@@ -10,6 +10,6 @@ modules["colorful_string.Style"] = colors.Style # type: ignore
 modules["colorful_string.Background"] = colors.Background # type: ignore
 modules["colorful_string.Foreground"] = colors.Foreground # type: ignore
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 # Now you can do the usual stuff.
