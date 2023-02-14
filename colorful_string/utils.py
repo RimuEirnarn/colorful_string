@@ -1,8 +1,13 @@
 """Utility"""
 
-from typing import Callable, Tuple
+from typing import Callable, List, Tuple
+from warnings import warn
+from . import colors
 
 Function = Callable[[str, int], str]
+
+class StyleUndefinedWarning(UserWarning):
+    """Specific style is missing."""
 
 class Combination:
     """Set combinations for future cases.
@@ -41,6 +46,25 @@ class Combination:
     def view(self) -> Tuple[Function, ...]:
         """Return as tuple"""
         return tuple(self._calls)
+
+    @classmethod
+    def from_string(cls, string: str):
+        """Create combination from string name.
+        example: st_Bold+fg_Red+bg_White"""
+        sstyles = string.split("+")
+        styles: List[Function] = []
+        for style in sstyles:
+            if style.startswith("st_"):
+                styles.append(getattr(colors.Style, style.replace("st_", '')))
+                continue
+            if style.startswith("fg_"):
+                styles.append(getattr(colors.Foreground, style.replace("fg_", '')))
+                continue
+            if style.startswith("bg_"):
+                styles.append(getattr(colors.Background, style.replace("bg_", '')))
+                continue
+            warn(f"Style {style} is undefined. It's ignored now.", StyleUndefinedWarning)
+        return cls(*styles)
 
     def __iter__(self):
         return iter(self._calls)
