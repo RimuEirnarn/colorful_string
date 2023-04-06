@@ -71,7 +71,10 @@ class Combination:
         result = string
         __depth_call = len(self) if __depth_call == -1 else __depth_call
         for i in self:
-            result = i(result, __depth_call)
+            if isinstance(i, Combination):
+                result = i(result, -1)[:-4] # strip last \e[0m
+            else:
+                result = i(result, __depth_call)
             __depth_call -= 1
             if __depth_call == 0:
                 result += "\033[0m"
