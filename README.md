@@ -1,6 +1,6 @@
 # Colorful String
 
-Yes, this package only wraps a string to some certain codes.
+Yes, this package only wraps strings to ansi codes.
 
 ## Installation
 
@@ -8,10 +8,16 @@ Yes, this package only wraps a string to some certain codes.
 pip install git+https://github.com/RimuEirnarn/colorful_string.git
 ```
 
-**tips**: You can install from tags/release archive source (`zip` and `tar.gz`). This may be for a case where git is not installed.
+**tips**: You can install from tags/release archive source (`zip` and `tar.gz`). Useful for cases where git is not installed or available on your system.
 
 ```sh
 pip install https://github.com/RimuEirnarn/colorful_string/archive/refs/tags/<version>.tar.gz
+```
+
+If you want to use the latest development (not recommended), try this:
+
+```sh
+pip install https://github.com/RimuEirnarn/colorful_string/archive/refs/heads/main.zip
 ```
 
 ## Usage
@@ -32,11 +38,11 @@ text = Bold(Italic(Foreground.Red("Hello, World!")))
 print(text)
 ```
 
-**Note**: Combination is formely named CallLinks, i've added alias to Combination for backward compatibility.
+**Note**: Combination is formerly named CallLinks. I've added an alias to Combination for backward compatibility.
 
-This (second example) does the same as the first example.
+The second example does the same as the first example.
 
-On `v0.1.3` or later, another solution was added:
+New feature after `v0.1.3`:
 
 ```python
 from colorful_string import Combination
@@ -47,12 +53,10 @@ print(procedure('Hello, World!'))
 
 ## Issues
 
-Some functionality like true colors might not working for non-256color terminals. Or even some styles may not work.
+Some functionality like `true colors` may not work for non-256color terminals.
+
+**New**: There's an issue where if you try to put the same `Combination` or assign `Combination` to another `Combination` which already has the previous `Combination` attached, it'll most likely crash. (#1)
 
 ## Contribute
 
-You can submit your issue and pull request and i'll try to watch that.
-
-## License
-
-This package is licensed in MIT.
+You can submit your issue and pull request.
