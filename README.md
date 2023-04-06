@@ -55,7 +55,7 @@ print(procedure('Hello, World!'))
 
 Some functionality like `true colors` may not work for non-256color terminals.
 
-**New**: There's an issue where if you try to put the same `Combination` or assign `Combination` to another `Combination` which already has the previous `Combination` attached, it'll most likely crash. (#1)
+**New**: There's an issue where if you try to put the same `Combination` or assign `Combination` to another `Combination` which already has the previous `Combination` attached, it'll most likely crash. ([#1](https://github.com/RimuEirnarn/colorful_string/issues/1))
 
 ## Contribute
 
