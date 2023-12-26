@@ -130,7 +130,7 @@ def factory(opt: ForeBack, color: RGB, __install: OPTMODULE = None) -> STYLEFN:
     if not isinstance(color, (tuple, Color)):
         raise TypeError(f"Expected Color | tuple, got {type(color).__name__}")
     colors = color if isinstance(color, Color) else Color(*color)
-    code = "\033[38;5;" if opt == 'fore' else "\033[48;5;"
+    code = "\033[38;2;" if opt == 'fore' else "\033[48;2;"
 
     def wrapper(string: str, __call_depth: int = 0) -> str:
         """Encapsulate string in defined code (the second args will close the encapsulation)"""
