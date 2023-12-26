@@ -154,7 +154,7 @@ close the encapsulation) (color id -> {colors!r}"""  # type: ignore
         setattr(__install, wrapper.__name__, wrapper)
     return wrapper
 
-def factory256(opt: Foreback, color: int, __install: OPTMODULE = None) -> STYLEFN:
+def factory256(opt: ForeBack, color: int, __install: OPTMODULE = None) -> STYLEFN:
     """Create function with background/foregroung color
 
     Args:
