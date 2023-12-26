@@ -154,6 +154,46 @@ close the encapsulation) (color id -> {colors!r}"""  # type: ignore
         setattr(__install, wrapper.__name__, wrapper)
     return wrapper
 
+def factory256(opt: Foreback, color: int, __install: OPTMODULE = None) -> STYLEFN:
+    """Create function with background/foregroung color
+
+    Args:
+        opt (ForeBack): Fore/Back (use as 'fore' or 'back')
+        color (int): A color ranging from int 0 to 256.
+
+    Raises:
+        TypeError: If mismatch.
+
+    Returns:
+        Callable(str, int) -> str: Function related with this function summary.
+    """
+    if not isinstance(color, int):
+        raise TypeError(f"Expected int, got {type(color).__name__}")
+    colors = color if isinstance(color, Color) else Color(*color)
+    code = "\033[38;5;" if opt == 'fore' else "\033[48;5;"
+
+    def wrapper(string: str, __call_depth: int = 0) -> str:
+        """Encapsulate string in defined code (the second args will close the encapsulation)"""
+        rgb = ";".join((str(a) for a in colors))
+        return f"{code}{rgb}m{string}{RESET if __call_depth == 0 else ''}"
+    wrapper.__name__ = opt+'ground'
+    wrapper.__doc__ = """Encapsulate string in defined code (the second args will \
+close the encapsulation) (color id -> {colors!r}"""  # type: ignore
+    wrapper.colors = colors  # type: ignore
+    if __install:
+        caller = getframeinfo(currentframe().f_back)  # type: ignore
+        if caller.code_context is not None:
+            try:
+                code0 = _astparse(
+                    caller.code_context[caller.index].rstrip().lstrip())  # type: ignore
+                name = code0.body[0].targets[0].id  # type: ignore
+            except (AttributeError, IndentationError):
+                name = wrapper.__name__
+            setattr(__install, name, wrapper)
+            return wrapper
+        setattr(__install, wrapper.__name__, wrapper)
+    return wrapper
+
 
 def _base_factory(name: str, code: str, __install: OPTMODULE = None) -> STYLEFN:
     """Create function as name with its code.
