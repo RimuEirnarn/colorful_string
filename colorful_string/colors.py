@@ -105,13 +105,13 @@ class Color:
         return f"#{self.hex[2:]}"
 
 
-if "256color" not in environ.get("TERM", ''):
-    TERM = environ.get("TERM", "this")
-    if TERM == "":
-        TERM = "this"
-    warn(f"{TERM} terminal may not support 256 colors.\
-Foregrounds.X may works better, but that's your choice.")
-    del TERM
+#if "256color" not in environ.get("TERM", ''):
+#    TERM = environ.get("TERM", "this")
+#    if TERM == "":
+#        TERM = "this"
+#    warn(f"{TERM} terminal may not support 256 colors.\
+#Foregrounds.X may works better, but that's your choice.")
+#    del TERM
 
 
 def factory(opt: ForeBack, color: RGB, __install: OPTMODULE = None) -> STYLEFN:
